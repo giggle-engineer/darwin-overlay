@@ -1,0 +1,8 @@
+sys-darwin/darwin-sources
+sys-darwin/AppleACPIPlatform
+sys-darwin/AppleRTC
+sys-darwin/IOATABlockStorage
+sys-darwin/IOBDStorageFamily
+sys-darwin/efiboot
+
+app-admin/eselect

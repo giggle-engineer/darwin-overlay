@@ -1,0 +1,47 @@
+diff -u -r -N bootstrap_cmds-60.1/decomment.tproj/Makefile.lnx bootstrap_cmds-60.1-patched/decomment.tproj/Makefile.lnx
+--- bootstrap_cmds-60.1/decomment.tproj/Makefile.lnx	1970-01-01 03:00:00.000000000 +0300
++++ bootstrap_cmds-60.1-patched/decomment.tproj/Makefile.lnx	2010-03-27 17:02:09.000000000 +0300
+@@ -0,0 +1,12 @@
++CFILES = decomment.c
++OFILES = $(CFILES:.c=.o)
++
++all: decomment
++
++relpath: $(OFILES)
++
++clean:
++	$(RM) decomment $(OFILES)
++install: all
++	$(MKDIR) -p $(DESTDIR)/usr/bin
++	$(INSTALL) decomment $(DESTDIR)/usr/bin
+diff -u -r -N bootstrap_cmds-60.1/Makefile.lnx bootstrap_cmds-60.1-patched/Makefile.lnx
+--- bootstrap_cmds-60.1/Makefile.lnx	1970-01-01 03:00:00.000000000 +0300
++++ bootstrap_cmds-60.1-patched/Makefile.lnx	2010-03-27 16:59:24.000000000 +0300
+@@ -0,0 +1,10 @@
++INSTALL := install
++MKDIR := mkdir
++CC := gcc
++CFLAGS += -Wall -I$(PWD)/include -DDEBUG_BUILD=0 -D_FILE_OFFSET_BITS=64 -D LINUX=1 -D BSD=1
++SUBDIRS := relpath.tproj decomment.tproj
++
++all clean install:
++	for d in $(SUBDIRS); do $(MAKE) -C $$d -f Makefile.lnx $@; done
++
++export CC CFLAGS INSTALL MKDIR
+diff -u -r -N bootstrap_cmds-60.1/relpath.tproj/Makefile.lnx bootstrap_cmds-60.1-patched/relpath.tproj/Makefile.lnx
+--- bootstrap_cmds-60.1/relpath.tproj/Makefile.lnx	1970-01-01 03:00:00.000000000 +0300
++++ bootstrap_cmds-60.1-patched/relpath.tproj/Makefile.lnx	2010-03-27 16:58:40.000000000 +0300
+@@ -0,0 +1,13 @@
++CFILES = relpath.c
++OFILES = $(CFILES:.c=.o)
++
++all: relpath
++
++relpath: $(OFILES)
++
++clean:
++	$(RM) relpath $(OFILES)
++
++install: all
++	$(MKDIR) -p $(DESTDIR)/usr/bin
++	$(INSTALL) relpath $(DESTDIR)/usr/bin
